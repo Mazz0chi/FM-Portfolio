@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Franco Mazzochi — Digital Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+</head>
+<body>
+
+<!-- scroll progress -->
+<div id="scroll-prog"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a href="#hero" class="nav-logo"><img src="assets/dark-fm.png" alt="Franco Mazzochi"></a>
+    <nav class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#about">About</a>
+      <a href="index-es.html" class="nav-lang">ES</a>
+    </nav>
+    <button class="nav-mob" id="mobBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- mobile drawer -->
+<div class="mob-drawer" id="mobDrawer">
+  <a href="#hero">Home</a>
+  <a href="#projects">Projects</a>
+  <a href="#experience">Experience</a>
+  <a href="#about">About</a>
+  <a href="index-es.html" style="color:var(--accent)">Español</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero-in">
+    <!-- LEFT -->
+    <div class="hero-text">
+      <div class="hero-badge"><span class="dot"></span>Available for select projects</div>
+      <h1 class="hero-name">Franco<br>Mazzochi</h1>
+      <div class="hero-roles">
+        <span>Digital Designer</span>
+        <span class="sep">×</span>
+        <span>Developer</span>
+      </div>
+      <p class="hero-statement">Graphic & UX/UI Designer with experience in branding, web design and visual content. Expert in Adobe Creative Suite, Figma and basic front-end. Focused on creating user-centered digital experiences.</p>
+      <div class="hero-stats">
+        <div class="h-stat"><div class="n">10+</div><div class="l">Brands</div></div>
+        <div class="h-stat"><div class="n">15+</div><div class="l">Projects</div></div>
+        <div class="h-stat"><div class="n">4</div><div class="l">Years</div></div>
+      </div>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-accent">
+          View My Work
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2"/></svg>
+        </a>
+        <a href="https://calendly.com/fmazzochi1/30min" target="_blank" class="btn btn-outline">Schedule a Call</a>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="hero-vis">
+      <div class="hero-img-wrap">
+        <img src="assets/banner.png" alt="Franco Mazzochi">
+        <a href="https://drive.google.com/file/d/1Vvox1mzkjWyWmerMIqAip9a0z2HUQoEv/view?usp=sharing" target="_blank" class="cv-pill">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5m0 0l5-5m-5 5V3" stroke="currentColor" stroke-width="2"/></svg>
+          Download CV
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="ln"></div><span>Scroll</span></div>
+</section>
+
+<!-- ============ FEATURED STRIP ============ -->
+<section class="feat-strip">
+  <div class="feat-row">
+    <a href="#proj-gosmartex" class="feat-card reveal">
+      <img src="assets/GO SMARTEX.png" alt="Go Smartex">
+      <div class="feat-body">
+        <div class="m">2025 · Web Design</div>
+        <h3>Go Smartex</h3>
+        <p>Modular WordPress system for IoT solutions</p>
+        <div class="arr">View Project <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></div>
+      </div>
+    </a>
+    <a href="#proj-standtick" class="feat-card reveal">
+      <img src="assets/Stand-Tick.png" alt="Stand Tick">
+      <div class="feat-body">
+        <div class="m">2022 · UX/UI Design</div>
+        <h3>Stand Tick</h3>
+        <p>Conceptual ticket resale app prototype</p>
+        <div class="arr">View Project <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></div>
+      </div>
+    </a>
+    <a href="#proj-eset" class="feat-card reveal">
+      <img src="assets/eset-graphic.png" alt="ESET">
+      <div class="feat-body">
+        <div class="m">2023 · Graphic Design</div>
+        <h3>ESET</h3>
+        <p>E-commerce pages & high-impact visuals</p>
+        <div class="arr">View Project <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section class="proj-sec" id="projects">
+  <div class="wrap">
+    <div class="s-head center reveal">
+      <div class="s-tag">Portfolio</div>
+      <h2>All Projects</h2>
+      <p>Web design, UX/UI prototypes, graphic design, and video editing — every project a different challenge, a different decision.</p>
+    </div>
+
+    <!-- ===== WEBSITES ===== -->
+    <div class="proj-block">
+      <div class="cat-lbl"><span class="cd wp"></span> Websites</div>
+
+      <!-- GO SMARTEX (big featured) -->
+      <div class="proj-big reveal" id="proj-gosmartex">
+        <a href="https://gosmartex.com/" target="_blank"><img src="assets/GO SMARTEX.png" alt="Go Smartex"></a>
+        <div class="proj-big-body">
+          <div class="m">2025 · Lead Designer · WordPress</div>
+          <h3>Go Smartex</h3>
+          <p>Built a modular WordPress system where every section adapts to content needs rather than forcing content into rigid templates. The challenge was communicating complex IoT and smart textile solutions to both B2B clients and end consumers without losing clarity.</p>
+          <div class="tags"><span class="tag wp">WordPress</span><span class="tag">Modular Design</span><span class="tag">B2B</span></div>
+          <a href="https://gosmartex.com/" target="_blank" class="go">Open Project <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+        </div>
+      </div>
+
+      <!-- 2-col grid -->
+      <div class="proj-row">
+        <!-- Tribu -->
+        <div class="proj-card reveal">
+          <a href="https://tribu-mkt.com/" target="_blank"><img src="assets/pagina-tribu.png" alt="Tribu MKT"></a>
+          <div class="proj-card-body">
+            <div class="m">2025 · Web Designer</div>
+            <h4>Tribu MKT</h4>
+            <p>Helped grow Tribu Marketing's web presence by designing entire modular sections and visual elements. Built structures that adapted to their dynamic style, making the content pop and connect better with their community.</p>
+            <div class="tags"><span class="tag wp">WordPress</span><span class="tag">Content Strategy</span></div>
+            <a href="https://tribu-mkt.com/" target="_blank" class="go">Open Project <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+          </div>
+        </div>
+
+        <!-- HRlogics -->
+        <div class="proj-card reveal">
+          <a href="https://hrlogics.com/" target="_blank"><img src="assets/hrlogics.png" alt="HRlogics"></a>
+          <div class="proj-card-body">
+            <div class="m">2025 · UX/UI Designer</div>
+            <h4>HRlogics</h4>
+            <p>Gave HRlogics a fresh digital face during their rebranding. Simplified complex HR services into a clean, friendly, easy-to-navigate interface — making the technical feel professional yet accessible.</p>
+            <div class="tags"><span class="tag wp">WordPress</span><span class="tag">UX Strategy</span><span class="tag">SaaS</span></div>
+            <a href="https://hrlogics.com/" target="_blank" class="go">Open Project <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+          </div>
+        </div>
+
+        <!-- Heritage -->
+        <div class="proj-card reveal">
+          <a href="https://heritagehealthnetwork.com/" target="_blank"><img src="assets/herritage.png" alt="Heritage Health Network"></a>
+          <div class="proj-card-body">
+            <div class="m">2025 · Web Designer</div>
+            <h4>Heritage Health Network</h4>
+            <p>With the branding already established, I brought Heritage's website to life from scratch. Created a digital experience that felt solid and sophisticated, ensuring users feel comfortable navigating the real estate healthcare world.</p>
+            <div class="tags"><span class="tag wp">WordPress</span><span class="tag">Healthcare</span></div>
+            <a href="https://heritagehealthnetwork.com/" target="_blank" class="go">Open Project <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+          </div>
+        </div>
+
+        <!-- Marketing Mob -->
+        <div class="proj-card reveal">
+          <a href="https://marketing-mob.com/" target="_blank"><img src="assets/MARKETING-MOB.png" alt="Marketing Mob"></a>
+          <div class="proj-card-body">
+            <div class="m">2025 · Web Designer</div>
+            <h4>Marketing Mob</h4>
+            <p>Focused on polishing the UX through details. Redesigned key components like the header and footer, and created custom graphic assets to give the site more personality — always keeping navigation fluid and engaging.</p>
+            <div class="tags"><span class="tag wp">WordPress</span><span class="tag">Service Design</span></div>
+            <a href="https://marketing-mob.com/" target="_blank" class="go">Open Project <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+          </div>
+        </div>
+
+        <!-- GEM -->
+        <div class="proj-card reveal">
+          <a href="https://new.electroquimioterapia.com.ar/que-es-la-electroquimioterapia/" target="_blank"><img src="assets/GEM copy.png" alt="GEM"></a>
+          <div class="proj-card-body">
+            <div class="m">2025 · Web Designer</div>
+            <h4>GEM</h4>
+            <p>Currently in progress — building out the digital presence for GEM's electrotherapy platform with a focus on accessibility and clear medical communication.</p>
+            <div class="tags"><span class="tag wp">WordPress</span><span class="tag">In Progress</span></div>
+            <a href="https://new.electroquimioterapia.com.ar/que-es-la-electroquimioterapia/" target="_blank" class="go">Open Project <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+          </div>
+        </div>
+
+        <!-- Chef Marco -->
+        <div class="proj-card reveal">
+          <a href="https://chefmarcorocha.com/" target="_blank"><img src="assets/chef-marco-img.png" alt="Chef Marco Rocha"></a>
+          <div class="proj-card-body">
+            <div class="m">2024 · Web Designer</div>
+            <h4>Chef Marco Rocha</h4>
+            <p>Developed a WordPress website showcasing his catering services. The site highlights menus, past events, and contact information — serving as both a digital portfolio and a hub for potential clients.</p>
+            <div class="tags"><span class="tag wp">WordPress</span><span class="tag">Food & Hospitality</span></div>
+            <a href="https://chefmarcorocha.com/" target="_blank" class="go">Open Project <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+          </div>
+        </div>
+
+        <!-- JJ-Bulk -->
+        <div class="proj-card reveal">
+          <a href="https://jjbulk.com/" target="_blank"><img src="assets/JJ-Bulk.png" alt="JJ-Bulk"></a>
+          <div class="proj-card-body">
+            <div class="m">2024 · Web Designer</div>
+            <h4>JJ-Bulk</h4>
+            <p>Built a WordPress site for JJ Bulk, a US-based carrier bulk service provider. The site details their specialized transportation solutions, service areas, and contact info for logistics inquiries.</p>
+            <div class="tags"><span class="tag wp">WordPress</span><span class="tag">Logistics</span></div>
+            <a href="https://jjbulk.com/" target="_blank" class="go">Open Project <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+          </div>
+        </div>
+
+        <!-- LBJ -->
+        <div class="proj-card reveal">
+          <a href="https://mazz0chi.github.io/TP-FINAL-LBJ/" target="_blank"><img src="assets/LBJ.png" alt="LBJ Website"></a>
+          <div class="proj-card-body">
+            <div class="m">2023 · Academic Project</div>
+            <h4>LBJ Website</h4>
+            <p>A website dedicated to LeBron James fans featuring a custom online store. Academic project blending fan engagement with a seamless e-commerce experience for brand merchandise.</p>
+            <div class="tags"><span class="tag">HTML/CSS</span><span class="tag">E-commerce</span><span class="tag">Academic</span></div>
+            <a href="https://mazz0chi.github.io/TP-FINAL-LBJ/" target="_blank" class="go">Open Project <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== UX/UI DESIGN ===== -->
+    <div class="proj-block">
+      <div class="cat-lbl"><span class="cd fig"></span> UX/UI Design</div>
+
+      <!-- Stand Tick (big) -->
+      <div class="proj-big reveal" id="proj-standtick" style="border-color:rgba(162,89,255,.15)">
+        <a href="https://www.figma.com/proto/QtxSgWtSAWvBYqCoudYtMy/Stand-Tick?page-id=0%3A1&node-id=550-82&starting-point-node-id=550%3A82&t=1y3IvOZ3hvk0uc50-1" target="_blank"><img src="assets/Stand-Tick.png" alt="Stand Tick"></a>
+        <div class="proj-big-body">
+          <div class="m">2022 · UX/UI Designer · Figma</div>
+          <h3>Stand Tick</h3>
+          <p>A conceptual ticket resale app prototyped with Julian. From brand conception and logo design onward, we focused on creating an exceptional user experience — an intuitive interface that simplifies event discovery, facilitates secure transactions, and ensures user peace of mind. A benefits-based points system complements the experience, incentivizing loyalty.</p>
+          <div class="tags"><span class="tag fig">Figma</span><span class="tag">Brand Design</span><span class="tag">App Prototype</span></div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap">
+            <a href="https://www.figma.com/proto/QtxSgWtSAWvBYqCoudYtMy/Stand-Tick?page-id=0%3A1&node-id=550-82&starting-point-node-id=550%3A82&t=1y3IvOZ3hvk0uc50-1" target="_blank" class="go" style="color:var(--fig)">Open Prototype <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+            <a href="https://drive.google.com/file/d/1YdRUotMycBpCSQGjZIDiBEQrmxRkZI-C/view?usp=sharing" target="_blank" class="go" style="color:var(--txt-s)">Project Folder <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Benki Mobile + Desktop -->
+      <div class="proj-proto reveal">
+        <a href="https://www.figma.com/proto/sNVysX1cOlT6dnNzd2WPml/Benki-Franco-Mazzochi?page-id=6%3A29&node-id=6-30&p=f&viewport=208%2C225%2C0.29&t=NHQZvNSP50daJTuw-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=6%3A30" target="_blank"><img src="assets/Benki-mobile.png" alt="Benki Mobile"></a>
+        <div class="proto-body">
+          <div class="m">2021 · UX/UI Designer</div>
+          <h4>Benki Mobile</h4>
+          <p>An early university project — conceived and prototyped a PWA for a buy-and-sell platform. Encompassed the full brand creation process: logo, identity guidelines, color palette, and initial market research. The prototype explores product listings, secure checkout, and account management.</p>
+          <div class="tags"><span class="tag fig">Figma</span><span class="tag">PWA</span><span class="tag">Brand Identity</span></div>
+          <div class="links">
+            <a href="https://www.figma.com/proto/sNVysX1cOlT6dnNzd2WPml/Benki-Franco-Mazzochi?page-id=6%3A29&node-id=6-30&p=f&viewport=208%2C225%2C0.29&t=NHQZvNSP50daJTuw-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=6%3A30" target="_blank" class="go">Mobile Prototype <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+            <a href="https://www.figma.com/proto/sNVysX1cOlT6dnNzd2WPml/Benki-Franco-Mazzochi?page-id=0%3A1&node-id=0-3&p=f&viewport=116%2C274%2C0.13&t=xlMYLuEk15wkSu0n-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=0%3A3" target="_blank" class="go">Desktop Prototype <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+            <a href="https://drive.google.com/file/d/102ATNtH2EzK2zBFBPKaCqZbDfP-Y8AQu/view?usp=sharing" target="_blank" class="go" style="color:var(--txt-s)">Project Folder <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== GRAPHIC DESIGN ===== -->
+    <div class="proj-block">
+      <div class="cat-lbl"><span class="cd gfx"></span> Graphic Design</div>
+
+      <!-- ESET (big) -->
+      <div class="gfx-big reveal" id="proj-eset">
+        <div class="gfx-big-body">
+          <h3>ESET</h3>
+          <div class="per">2023 · Graphic Designer</div>
+          <p>At ESET, I designed e-commerce pages, landing pages, and optimized UX for online sales and marketing. Created high-impact visuals for Mercado Libre and Google Ads, and developed effective HTML email campaigns. Collaborated with marketing, sales, and content teams on product launches and promotions.</p>
+          <h5>Tools & Platforms</h5>
+          <ul>
+            <li>Adobe Photoshop & Illustrator</li>
+            <li>HTML email campaign development</li>
+            <li>Mercado Libre & Google Ads visuals</li>
+            <li>Cross-team collaboration on product launches</li>
+          </ul>
+        </div>
+        <a href="https://drive.google.com/drive/folders/1IBHA5SVcKjo_-TiWTB4WQ1IK5tZ1z-vx?usp=sharing" target="_blank"><img src="assets/eset-graphic.png" alt="ESET Graphic Design"></a>
+      </div>
+
+      <!-- Lycka card -->
+      <div class="gfx-row">
+        <div class="gfx-card reveal">
+          <a href="https://drive.google.com/file/d/1Vvox1mzkjWyWmerMIqAip9a0z2HUQoEv/view?usp=sharing" target="_blank"><img src="assets/Lycka.png" alt="Lycka Brand"></a>
+          <div class="gfx-card-body">
+            <div class="m">2024 · Brand Designer</div>
+            <h4>Lycka</h4>
+            <p>Created the foundational brand identity for Lycka, a startup, enabling them to launch with a cohesive and professional visual presence. Included logo design, a comprehensive style guide, and initial marketing assets.</p>
+            <div class="tags"><span class="tag gfx">Brand Identity</span><span class="tag">Logo Design</span><span class="tag">Style Guide</span></div>
+            <a href="https://drive.google.com/file/d/1Vvox1mzkjWyWmerMIqAip9a0z2HUQoEv/view?usp=sharing" target="_blank" class="go">View Work <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2"/></svg></a>
+          </div>
+        </div>
+        <!-- placeholder for future graphic work -->
+        <div class="gfx-card reveal" style="border:2px dashed var(--border);background:transparent;display:flex;align-items:center;justify-content:center;min-height:260px">
+          <div style="text-align:center;color:var(--txt-s)">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin:0 auto .6rem"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 8v8m-4-4h8" stroke="currentColor" stroke-width="1.5"/></svg>
+            <p style="font-size:.82rem">More work coming soon</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== VIDEO EDITING ===== -->
+    <div class="proj-block">
+      <div class="cat-lbl"><span class="cd vid"></span> Video Editing</div>
+
+      <div class="vid-sub">
+        <h4>Reels</h4>
+        <div class="yr">2024 – 2025</div>
+        <div class="vid-row">
+          <a href="https://www.instagram.com/p/DHUPJPPvtCd/" target="_blank" class="vid-card vert">
+            <img src="assets/Toby y Gareca -.png" alt="Reel 1">
+            <div class="vid-play"><svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="22" fill="white" opacity=".9"/><path d="M17 13l14 9-14 9V13z" fill="#000"/></svg></div>
+          </a>
+          <a href="https://www.instagram.com/p/C_HH_Ixv20H/" target="_blank" class="vid-card vert">
+            <img src="assets/MediaPunta-Doble.png" alt="Reel 2">
+            <div class="vid-play"><svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="22" fill="white" opacity=".9"/><path d="M17 13l14 9-14 9V13z" fill="#000"/></svg></div>
+          </a>
+          <a href="https://www.instagram.com/p/C_eTNX1sggY/" target="_blank" class="vid-card vert">
+            <img src="assets/Comedy.png" alt="Reel 3">
+            <div class="vid-play"><svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="22" fill="white" opacity=".9"/><path d="M17 13l14 9-14 9V13z" fill="#000"/></svg></div>
+          </a>
+          <a href="https://www.instagram.com/p/C_6Rp-zPiQF/" target="_blank" class="vid-card vert">
+            <img src="assets/comedy-2.png" alt="Reel 4">
+            <div class="vid-play"><svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="22" fill="white" opacity=".9"/><path d="M17 13l14 9-14 9V13z" fill="#000"/></svg></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="vid-sub">
+        <h4>Shorts & Commercials</h4>
+        <div class="yr">2024</div>
+        <div class="vid-row">
+          <a href="https://www.youtube.com/watch?v=pOBqW1lEgTI" target="_blank" class="vid-card horiz">
+            <img src="assets/elJuicio.png" alt="El Juicio">
+            <div class="vid-play"><svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="22" fill="white" opacity=".9"/><path d="M17 13l14 9-14 9V13z" fill="#000"/></svg></div>
+          </a>
+          <a href="https://youtu.be/x3EyoIFiBx8" target="_blank" class="vid-card horiz">
+            <img src="assets/(des)conocidos.png" alt="(des)conocidos">
+            <div class="vid-play"><svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="22" fill="white" opacity=".9"/><path d="M17 13l14 9-14 9V13z" fill="#000"/></svg></div>
+          </a>
+          <a href="https://youtu.be/YwMItz1eU5c" target="_blank" class="vid-card horiz">
+            <img src="assets/melody.png" alt="Melody">
+            <div class="vid-play"><svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="22" fill="white" opacity=".9"/><path d="M17 13l14 9-14 9V13z" fill="#000"/></svg></div>
+          </a>
+          <a href="https://youtu.be/FeRHUb7Ywgk" target="_blank" class="vid-card horiz">
+            <img src="assets/Peleas en ciclos.png" alt="Peleas en Ciclos">
+            <div class="vid-play"><svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="22" fill="white" opacity=".9"/><path d="M17 13l14 9-14 9V13z" fill="#000"/></svg></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section class="exp-sec" id="experience">
+  <div class="wrap">
+    <div class="s-head center reveal">
+      <div class="s-tag">Background</div>
+      <h2>Experience & Education</h2>
+    </div>
+
+    <div class="timeline">
+      <!-- Content & Design Manager — Gosmartex -->
+      <div class="tl-item now reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <div><h3>Content & Design Manager</h3><h4>GO-Smartex</h4></div>
+          <span class="tl-per">June 2024 — Present</span>
+        </div>
+        <p class="tl-desc">Design digital pieces and audiovisual content for campaigns (mainly LinkedIn). Develop websites in WordPress (Elementor, Thrive, Divi). Participate in rebranding and execute UX/UI design strategies. Manage projects and supervise a community management intern.</p>
+        <div class="tl-ach">
+          <h5>Key Achievements</h5>
+          <ul>
+            <li>Developed comprehensive brand guidelines ensuring consistency across 50+ marketing assets</li>
+            <li>Created modular design system reducing asset creation time by 40%</li>
+            <li>Led packaging redesign increasing product shelf visibility</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Video Editor — Media Punta -->
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <div><h3>Video Editor — Reels Creation</h3><h4>Media Punta (Chile)</h4></div>
+          <span class="tl-per">June 2024 — April 2025</span>
+        </div>
+        <p class="tl-desc">Production of short audiovisual content (reels) using podcast clips, incorporating dynamic text, animations and visual effects. Improved storytelling through curation of multimedia elements, increasing audience engagement. Implementation of popular visual trends to maximize reach on social networks.</p>
+      </div>
+
+      <!-- Freelance -->
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <div><h3>Freelance Digital Designer</h3><h4>Independent</h4></div>
+          <span class="tl-per">2022 — Present</span>
+        </div>
+        <p class="tl-desc">Specialized in WordPress development, UX/UI design, and video editing for B2B and B2C clients. Built custom solutions for marketing agencies, SaaS companies, healthcare providers, and logistics firms across the US and Latin America.</p>
+        <div class="tl-stats">
+          <div class="tl-sbox"><div class="n">15+</div><div class="l">Websites Delivered</div></div>
+          <div class="tl-sbox"><div class="n">10+</div><div class="l">Brands Served</div></div>
+          <div class="tl-sbox"><div class="n">100%</div><div class="l">Client Satisfaction</div></div>
+        </div>
+      </div>
+
+      <!-- Marketing Designer — ESET -->
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <div><h3>Marketing Designer</h3><h4>ESET Latinoamérica</h4></div>
+          <span class="tl-per">June 2023 — December 2023</span>
+        </div>
+        <p class="tl-desc">Visual content design for LinkedIn, Twitter and Facebook respecting brand guidelines. Creation of materials for e-commerce and UX flow optimization to improve user experience. Development of email marketing campaigns through HTML, collaborating with sales and product teams. Participation in product launches, webinars and promotional campaigns.</p>
+      </div>
+
+      <!-- Education -->
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <div><h3>Bachelor's in Digital Design</h3><h4>Universidad de Palermo</h4></div>
+          <span class="tl-per">Jun 2021 — Jul 2025</span>
+        </div>
+        <p class="tl-desc">Comprehensive program covering UX/UI design, web development, branding, motion graphics, and design thinking. Graduated specializing in systematic design approaches and scalable digital solutions.</p>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div class="certs-wrap reveal">
+      <h3>Certifications</h3>
+      <div class="certs-grid">
+        <div class="cert">
+          <h4>Google</h4>
+          <p>Foundations of User Experience (UX) Design</p>
+          <a href="https://www.coursera.org/user/04eaab1fac43b0cf28190752aa777a00" target="_blank">View on Coursera →</a>
+        </div>
+        <div class="cert">
+          <h4>Microsoft</h4>
+          <p>Fundamentals of UI/UX Design</p>
+          <a href="https://www.coursera.org/user/04eaab1fac43b0cf28190752aa777a00" target="_blank">View on Coursera →</a>
+        </div>
+        <div class="cert">
+          <h4>Duke University</h4>
+          <p>Foundations with JavaScript, HTML and CSS</p>
+          <a href="https://www.coursera.org/user/04eaab1fac43b0cf28190752aa777a00" target="_blank">View on Coursera →</a>
+        </div>
+        <div class="cert">
+          <h4>IBM</h4>
+          <p>Introduction to Web Development & Front-End</p>
+          <a href="https://www.coursera.org/user/04eaab1fac43b0cf28190752aa777a00" target="_blank">View on Coursera →</a>
+        </div>
+        <div class="cert">
+          <h4>Universidad de Palermo</h4>
+          <p>Adobe Illustrator Intermediate Tools</p>
+          <a href="https://www.coursera.org/user/04eaab1fac43b0cf28190752aa777a00" target="_blank">View Certificate →</a>
+        </div>
+        <div class="cert">
+          <h4>Generative AI</h4>
+          <p>Intro to Generative AI: Core Concepts & Applications</p>
+          <a href="https://www.coursera.org/user/04eaab1fac43b0cf28190752aa777a00" target="_blank">View on Coursera →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about-sec" id="about">
+  <div class="about-grid">
+    <!-- LEFT -->
+    <div class="about-left reveal">
+      <div class="s-tag">Philosophy</div>
+      <div class="s-head"><h2>How I Think<br>About Design</h2></div>
+      <p class="lead">I believe digital design should feel inevitable, not impressive. The best interfaces disappear — they let users accomplish their goals without thinking about the design itself.</p>
+      <p>My approach centers on creating <strong>coherent systems</strong> rather than isolated screens. Whether building a WordPress architecture, designing a brand identity, or crafting video content, I focus on patterns that scale and adapt.</p>
+      <p>Complexity should live in the thinking, not the interface. Every addition must justify its existence. This constraint-based approach forces better decisions and creates clarity for users.</p>
+
+      <div class="principles">
+        <h3>Core Principles</h3>
+        <div class="p-item"><div class="p-num">01</div><div><h4>Constraint as Clarity</h4><p>Limitation forces better decisions. I design with fewer elements, not more.</p></div></div>
+        <div class="p-item"><div class="p-num">02</div><div><h4>Systems Over Screens</h4><p>Individual pages don't matter. Scalable, reusable patterns do.</p></div></div>
+        <div class="p-item"><div class="p-num">03</div><div><h4>Context Before Craft</h4><p>Beautiful design that solves the wrong problem is just noise.</p></div></div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="about-right reveal">
+      <div class="sk-block">
+        <h3>Technical Skills</h3>
+        <div class="sk-cat"><h5>Design</h5><div class="sk-tags"><span>Figma</span><span>Adobe Photoshop</span><span>Adobe Illustrator</span><span>Adobe Premiere Pro</span><span>Adobe After Effects</span><span>Canva Pro</span></div></div>
+        <div class="sk-cat"><h5>Development</h5><div class="sk-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>WordPress</span><span>Responsive Design</span></div></div>
+        <div class="sk-cat"><h5>Specializations</h5><div class="sk-tags"><span>UX/UI Design</span><span>Web Design</span><span>Brand Identity</span><span>Design Systems</span><span>Video Editing</span></div></div>
+      </div>
+
+      <div class="brands-block">
+        <h3>Brands I've Worked With</h3>
+        <div class="brand-logos">
+          <a href="https://gosmartex.com/" target="_blank"><img src="assets/GO-Smartex-1.png" alt="Go Smartex"></a>
+          <a href="https://tribu-mkt.com/" target="_blank"><img src="assets/Tribu-Marketing-Logo-1-150x150.png" alt="Tribu MKT"></a>
+          <a href="https://hrlogics.com/" target="_blank"><img src="assets/HRlogics Logo-lt.png" alt="HRlogics"></a>
+          <a href="https://heritagehealthnetwork.com/" target="_blank"><img src="assets/HHN-Logo-1.svg" alt="Heritage Health"></a>
+          <a href="https://marketing-mob.com/" target="_blank"><img src="assets/MM_Logo-Color_2019-1.png" alt="Marketing Mob"></a>
+          <a href="https://www.eset.com/latam/" target="_blank"><img src="assets/eset.png" alt="ESET"></a>
+          <a href="https://jjbulk.com/" target="_blank"><img src="assets/JJ-light.png" alt="JJ Bulk"></a>
+          <a href="https://chefmarcorocha.com/" target="_blank"><img src="assets/chef-marco.png" alt="Chef Marco"></a>
+          <a href="https://electroquimioterapia.com.ar/" target="_blank"><img src="assets/GEM-logo.png" alt="GEM"></a>
+          <a href="#"><img src="assets/Lycka.png" alt="Lycka"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact-sec">
+  <div class="contact-in reveal">
+    <div class="s-tag">Get In Touch</div>
+    <h2>Let's Work Together</h2>
+    <p>I'm available for select projects. If you have a challenge that needs systematic thinking and careful execution, let's talk.</p>
+    <a href="mailto:fmazzochi1@gmail.com" class="c-email">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2"/><path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="2"/></svg>
+      fmazzochi1@gmail.com
+    </a><br>
+    <div class="c-btns">
+      <a href="https://calendly.com/fmazzochi1/30min" target="_blank" class="btn btn-accent">Schedule a Call <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2"/></svg></a>
+      <a href="https://drive.google.com/file/d/1Vvox1mzkjWyWmerMIqAip9a0z2HUQoEv/view?usp=sharing" target="_blank" class="btn btn-outline">Download CV</a>
+    </div>
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/franco-mazzochi" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      <a href="https://www.instagram.com/fmazzochi.portfolio/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="foot-in">
+    <p>© 2025 Franco Mazzochi. All rights reserved.</p>
+    <p>Digital Design — Universidad de Palermo (2021–2025)</p>
+  </div>
+</footer>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="script.js"></script>
+</body>
+</html>
