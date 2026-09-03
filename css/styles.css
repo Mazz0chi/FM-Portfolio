@@ -456,6 +456,8 @@ button{font-family:inherit}
 }
 .brand-logos a:hover{border-color:var(--accent);transform:scale(1.06)}
 .brand-logos img{max-height:26px;width:auto;filter:brightness(0) invert(1);opacity:.72}
+.brand-logos img.color{filter:none;opacity:1}
+.brand-logos a:has(img.color){background:#fff}
 
 @media(max-width:680px){.about-grid{grid-template-columns:1fr}}
 
