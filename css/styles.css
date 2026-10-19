@@ -55,7 +55,8 @@
 html { -webkit-text-size-adjust: 100%; scroll-padding-top: 96px; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-stopped { overflow: hidden; }
+/* no overflow:hidden while Lenis is stopped: Firefox resets the scroll position when it is removed.
+   Lenis already blocks wheel scrolling on its own while stopped. */
 
 body {
   font-family: var(--body);
@@ -592,6 +593,7 @@ ul { list-style: none; }
 .dlg__nav { display: flex; gap: 6px; }
 .dlg__nav .round { width: 44px; height: 44px; font-size: 1.05rem; }
 .dlg__body { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 24px; }
+.dlg__body:focus { outline: none; }
 .dlg__content { display: flex; flex-direction: column; gap: 22px; }
 .dlg__content.is-swapping { animation: swap .55s var(--ease); }
 @keyframes swap { from { opacity: 0; transform: translateX(var(--dir, 24px)); } }

@@ -262,7 +262,9 @@
   }, { passive: true });
   railState();
 
-  // drag to scroll with the mouse (touch already scrolls natively)
+  // drag to scroll with the mouse (touch already scrolls natively).
+  // Links start a native link-drag in Firefox and Safari, which cancels the gesture, so block it.
+  rail.addEventListener("dragstart", (e) => e.preventDefault());
   let drag = null;
   rail.addEventListener("pointerdown", (e) => {
     if (e.pointerType !== "mouse") return;
@@ -274,7 +276,7 @@
     if (!drag.moved && Math.abs(dx) > 5) { drag.moved = true; rail.classList.add("is-grabbing"); }
     if (drag.moved) rail.scrollLeft = drag.left - dx;
   });
-  window.addEventListener("pointerup", () => {
+  const endRailDrag = () => {
     if (!drag) return;
     const moved = drag.moved;
     drag = null;
@@ -284,7 +286,9 @@
       const card = $$(".vid", rail).reduce((best, el) => Math.abs(el.offsetLeft - rail.scrollLeft - parseFloat(getComputedStyle(rail).paddingLeft)) < Math.abs(best.offsetLeft - rail.scrollLeft - parseFloat(getComputedStyle(rail).paddingLeft)) ? el : best);
       rail.scrollTo({ left: card.offsetLeft - parseFloat(getComputedStyle(rail).paddingLeft), behavior: "smooth" });
     }
-  });
+  };
+  window.addEventListener("pointerup", endRailDrag);
+  window.addEventListener("pointercancel", endRailDrag);
 
   /* ---------------- principles: highlight the one in focus ---------------- */
   const principles = $$(".principle");
@@ -428,7 +432,8 @@
   hero.addEventListener("pointerenter", () => { userActive = true; collab.classList.remove("is-on"); });
   hero.addEventListener("pointerleave", () => { userActive = false; hovered = null; showSel(selected); scheduleDemo(2500); });
 
-  // move tool: drag layers around
+  // move tool: drag layers around (no native image/link drag while doing it)
+  hero.addEventListener("dragstart", (e) => e.preventDefault());
   let dragging = null;
   hero.addEventListener("pointerdown", (e) => {
     if (tool !== "move" || !desktop.matches || e.button !== 0) return;
@@ -448,7 +453,7 @@
     dragging.el.dataset.tx = tx; dragging.el.dataset.ty = ty;
     showSel(dragging.el, true);
   });
-  window.addEventListener("pointerup", () => {
+  const endLayerDrag = () => {
     if (!dragging) return;
     const d = dragging;
     dragging = null;
@@ -460,7 +465,9 @@
       setTimeout(() => window.removeEventListener("click", swallow, { capture: true }), 60);
     }
     showSel(d.el);
-  });
+  };
+  window.addEventListener("pointerup", endLayerDrag);
+  window.addEventListener("pointercancel", endLayerDrag);
 
   // pen tool: freehand strokes
   let stroke = null;
