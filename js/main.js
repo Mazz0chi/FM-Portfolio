@@ -71,6 +71,23 @@
     if (el) sectionIO.observe(el);
   });
 
+  // Scroll progress bar, driven from JS in every browser: Firefox and Zen don't support
+  // CSS scroll-driven animations yet, and Safari's implementation advanced unevenly.
+  const progress = $(".nav__progress");
+  if (progress) {
+    let queued = false;
+    const paint = () => {
+      queued = false;
+      const max = document.documentElement.scrollHeight - innerHeight;
+      progress.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+    };
+    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(paint); } };
+    if (lenis) lenis.on("scroll", queue);
+    else addEventListener("scroll", queue, { passive: true });
+    addEventListener("resize", queue);
+    paint();
+  }
+
   const sheet = $("#sheet"), menuBtn = $("#menuBtn");
   function closeSheet() {
     sheet.classList.remove("is-open");

@@ -181,10 +181,6 @@ ul { list-style: none; }
   position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
   background: var(--accent); transform-origin: 0 50%; transform: scaleX(0);
 }
-@supports (animation-timeline: scroll()) {
-  .nav__progress { animation: grow linear both; animation-timeline: scroll(root); }
-  @keyframes grow { to { transform: scaleX(1); } }
-}
 .nav__menu { display: none; width: 44px; height: 44px; border-radius: 50%; place-items: center; font-size: 1.35rem; }
 
 .sheet {
@@ -416,9 +412,12 @@ ul { list-style: none; }
 .rail.is-grabbing { cursor: grabbing; scroll-snap-type: none; }
 .rail.is-grabbing a { pointer-events: none; }
 .vid { flex-shrink: 0; scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px; }
-.vid__media { position: relative; height: clamp(300px, 30vw, 420px); border-radius: var(--r-card); overflow: hidden; background: var(--ink); }
-.vid--reel .vid__media { aspect-ratio: 9 / 16; }
-.vid--short .vid__media { aspect-ratio: 16 / 9; }
+.rail { --vh: clamp(300px, 28vw, 400px); }
+/* explicit widths: Safari ignores aspect-ratio on these flex items and falls back to each image's own ratio */
+.vid__media { position: relative; height: var(--vh); border-radius: var(--r-card); overflow: hidden; background: var(--surface-2); }
+.vid--reel .vid__media { width: calc(var(--vh) * 9 / 16); }
+.vid--short .vid__media { width: calc(var(--vh) * 16 / 9); }
+.vid__media::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px var(--line); pointer-events: none; }
 .vid__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease), opacity .4s; user-select: none; -webkit-user-drag: none; }
 .vid:hover .vid__media img { transform: scale(1.05); opacity: .85; }
 .vid__play {
@@ -655,7 +654,8 @@ ul { list-style: none; }
   .cell--stats, .cell--design, .cell--certs, .cell--dev, .cell--spec { grid-column: span 12; }
   .stats b { font-size: 2.6rem; }
   .reel-head { flex-direction: column; align-items: flex-start; }
-  .vid__media { height: 340px; }
+  .rail { --vh: 320px; gap: 12px; }
+  .vid--short .vid__media { width: min(84vw, 520px); height: auto; aspect-ratio: 16 / 9; }
   .socials { margin-left: 0; }
   .dlg__panel { top: auto; left: 0; right: 0; bottom: 0; width: 100%; height: 92dvh; border-radius: 24px 24px 0 0; transform: translateY(100%); }
   .dlg__info { grid-template-columns: repeat(2, auto); }
