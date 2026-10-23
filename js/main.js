@@ -197,7 +197,7 @@
 
   grid.addEventListener("click", (e) => {
     const b = e.target.closest(".card__btn");
-    if (b) openProject(b.dataset.slug);
+    if (b) openProject(b.dataset.slug, b.querySelector(".card__media"));
   });
 
   /* ---------------- project dialog ---------------- */
@@ -208,7 +208,8 @@
     const links = p.links.map((l, i) => `<a class="btn ${i ? "btn--ghost" : "btn--accent"}" href="${pick(l.url)}" target="_blank" rel="noopener">${pick(l.label)}${i ? "" : ' <i class="ph ph-arrow-up-right"></i>'}</a>`).join("");
     const imgs = [p.img, ...(p.gallery || [])].map((n) => `<div class="dlg__media"><img src="${IMG(n)}" alt="${p.title} ${T.preview}"></div>`).join("");
     dlgContent.innerHTML = `
-      ${imgs}
+      <div class="dlg__gallery">${imgs}</div>
+      <div class="dlg__side">
       <h2 class="dlg__title" id="dlgTitle">${p.title}</h2>
       <dl class="dlg__info">
         <div><dt>${T.year}</dt><dd>${p.year}</dd></div>
@@ -218,7 +219,8 @@
       <p class="dlg__desc">${pick(p.desc)}</p>
       ${stackChips(p) ? `<div class="card__chips dlg__chips" aria-label="${T.built}">${stackChips(p)}</div>` : ""}
       <div class="tags dlg__tags">${pick(p.tags).map((t) => `<span class="tag">${t}</span>`).join("")}</div>
-      <div class="dlg__links">${links}</div>`;
+      <div class="dlg__links">${links}</div>
+      </div>`;
     dlgCount.textContent = `${String(current + 1).padStart(2, "0")} / ${String(visible.length).padStart(2, "0")}`;
     if (dir) {
       dlgContent.style.setProperty("--dir", dir > 0 ? "28px" : "-28px");
@@ -229,22 +231,58 @@
     $(".dlg__body").scrollTop = 0;
   }
 
-  function openProject(slug) {
+  const panel = $(".dlg__panel"), scrim = $(".dlg__scrim");
+  const EASE_OUT = "cubic-bezier(.16, 1, .3, 1)", EASE_IN = "cubic-bezier(.7, 0, .84, 0)";
+  const sheetMode = () => matchMedia("(max-width: 760px)").matches;
+  let closing = false;
+
+  // Desktop: the window grows out of the card that was clicked. Mobile: it slides up as a sheet.
+  function panelFrames(origin) {
+    if (sheetMode()) return [{ transform: "translateY(100%)" }, { transform: "translateY(0)" }];
+    const pr = panel.getBoundingClientRect();
+    panel.style.transformOrigin = origin
+      ? `${origin.left + origin.width / 2 - pr.left}px ${origin.top + origin.height / 2 - pr.top}px`
+      : "50% 50%";
+    return [{ transform: "scale(.55)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }];
+  }
+
+  function openProject(slug, originEl) {
     current = visible.findIndex((p) => p.slug === slug);
     if (current < 0) { filter = "all"; visible = projects; current = projects.findIndex((p) => p.slug === slug); }
     if (current < 0) return;
     fillDialog(visible[current]);
+    closing = false;
+    panel.getAnimations().forEach((a) => a.cancel());
     dlg.showModal();
-    requestAnimationFrame(() => dlg.classList.add("is-open"));
+    $(".dlg__body").focus({ preventScroll: true }); // keyboard scrolling works, nothing moves
     lenis && lenis.stop();
     history.replaceState(null, "", `?p=${slug}${location.hash}`);
+    if (reduced) return;
+    const origin = originEl ? originEl.getBoundingClientRect() : null;
+    panel.animate(panelFrames(origin), { duration: sheetMode() ? 520 : 620, easing: EASE_OUT });
+    scrim.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, easing: "ease-out" });
+    lastOrigin = originEl || null;
   }
+  let lastOrigin = null;
   function closeProject() {
-    if (!dlg.open) return;
-    dlg.classList.remove("is-open");
-    setTimeout(() => dlg.close(), reduced ? 0 : 450);
+    if (!dlg.open || closing) return;
+    closing = true;
     lenis && lenis.start();
     history.replaceState(null, "", location.pathname + location.hash);
+    if (reduced) { dlg.close(); return; }
+    // shrink back toward the card of the project currently shown (if it is on screen)
+    const card = grid.querySelector(`[data-slug="${visible[current].slug}"]`) || lastOrigin;
+    const r = card && card.getBoundingClientRect();
+    const onScreen = r && r.bottom > 0 && r.top < innerHeight;
+    const frames = panelFrames(onScreen ? r : null).reverse();
+    const anim = panel.animate(frames, { duration: sheetMode() ? 380 : 420, easing: EASE_IN, fill: "forwards" });
+    scrim.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 380, easing: "ease-in", fill: "forwards" });
+    anim.finished.then(() => {
+      dlg.close();
+      panel.getAnimations().forEach((a) => a.cancel());
+      scrim.getAnimations().forEach((a) => a.cancel());
+      closing = false;
+    }).catch(() => {});
   }
   function step(dir) {
     current = (current + dir + visible.length) % visible.length;
@@ -257,6 +295,23 @@
     if (s) step(+s.dataset.step);
   });
   dlg.addEventListener("cancel", (e) => { e.preventDefault(); closeProject(); });
+  // Keep the page behind the open window still: wheel and touch only scroll the window's
+  // own content, and only while it actually has room to move in that direction.
+  const dlgBody = $(".dlg__body");
+  const blocks = (target, dy) => {
+    if (!dlgBody.contains(target)) return true;
+    const max = dlgBody.scrollHeight - dlgBody.clientHeight;
+    if (max <= 0) return true;
+    return (dy < 0 && dlgBody.scrollTop <= 0) || (dy > 0 && dlgBody.scrollTop >= max - 1);
+  };
+  dlg.addEventListener("wheel", (e) => { if (blocks(e.target, e.deltaY)) e.preventDefault(); }, { passive: false });
+  let touchY = 0;
+  dlg.addEventListener("touchstart", (e) => { touchY = e.touches[0].clientY; }, { passive: true });
+  dlg.addEventListener("touchmove", (e) => {
+    const y = e.touches[0].clientY;
+    if (blocks(e.target, touchY - y)) e.preventDefault();
+    touchY = y;
+  }, { passive: false });
   dlg.addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight") step(1);
     if (e.key === "ArrowLeft") step(-1);
