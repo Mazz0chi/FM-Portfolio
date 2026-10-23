@@ -3,8 +3,8 @@
 (() => {
   const LANG = document.documentElement.lang === "es" ? "es" : "en";
   const T = {
-    en: { web: "Website", ux: "UX/UI", brand: "Brand & graphics", year: "Year", role: "Role", type: "Type", built: "Built with", copied: "Email copied", preview: "preview", projects: "projects", gs: "With GO Smartex", code: "Hand-coded" },
-    es: { web: "Sitio web", ux: "UX/UI", brand: "Marca y gráfica", year: "Año", role: "Rol", type: "Tipo", built: "Hecho con", copied: "Email copiado", preview: "vista previa", projects: "proyectos", gs: "Con GO Smartex", code: "Código a mano" }
+    en: { web: "Website", ux: "UX/UI", brand: "Brand & graphics", year: "Year", role: "Role", type: "Type", built: "Built with", copied: "Email copied", preview: "preview", projects: "projects", gs: "With GO Smartex", code: "HTML & CSS" },
+    es: { web: "Sitio web", ux: "UX/UI", brand: "Marca y gráfica", year: "Año", role: "Rol", type: "Tipo", built: "Hecho con", copied: "Email copiado", preview: "vista previa", projects: "proyectos", gs: "Con GO Smartex", code: "HTML y CSS" }
   }[LANG];
 
   const $ = (s, root = document) => root.querySelector(s);
@@ -112,6 +112,29 @@
     b.style.setProperty("--mx", e.clientX - r.left + "px");
     b.style.setProperty("--my", e.clientY - r.top + "px");
   });
+
+  /* ---------------- logo marquee ----------------
+     Each track slides by its own width, so the row needs at least one full copy beyond the
+     viewport to loop without a gap. Clone the track until that's true. */
+  const marquee = $(".marquee");
+  if (marquee) {
+    const base = $(".marquee__track", marquee);
+    const fill = () => {
+      const tracks = $$(".marquee__track", marquee);
+      let width = tracks.length * base.scrollWidth;
+      while (width < marquee.clientWidth + base.scrollWidth) {
+        const copy = base.cloneNode(true);
+        copy.setAttribute("aria-hidden", "true");
+        $$("a", copy).forEach((a) => a.setAttribute("tabindex", "-1"));
+        marquee.appendChild(copy);
+        width += base.scrollWidth;
+      }
+    };
+    // logo widths are only known once the images load
+    const imgs = $$("img", base);
+    Promise.all(imgs.map((i) => (i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; })))).then(fill);
+    addEventListener("resize", fill);
+  }
 
   /* ---------------- reveal on scroll ---------------- */
   const revealIO = new IntersectionObserver((entries) => entries.forEach((en) => {
