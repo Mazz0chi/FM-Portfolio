@@ -14,18 +14,11 @@
   const pick = (v) => (v && typeof v === "object" ? v[LANG] : v);
   const IMG = (name) => `assets/images/work/${name}.webp`;
 
-  /* ---------------- smooth scroll ---------------- */
-  let lenis = null;
-  if (!reduced && window.Lenis) {
-    lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1 });
-    const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
-    requestAnimationFrame(raf);
-  }
+  /* ---------------- anchor links ----------------
+     Native scrolling only: a smooth-scroll library adds input lag on trackpads.
+     The offset under the fixed nav comes from scroll-padding-top in the CSS. */
   const scrollToEl = (el) => {
-    if (!el) return;
-    const offset = el.id === "hero" ? 0 : -90;
-    if (lenis) lenis.scrollTo(el, { offset, duration: 1.3 });
-    else el.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+    if (el) el.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
   };
 
   document.addEventListener("click", (e) => {
@@ -82,8 +75,7 @@
       progress.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
     };
     const queue = () => { if (!queued) { queued = true; requestAnimationFrame(paint); } };
-    if (lenis) lenis.on("scroll", queue);
-    else addEventListener("scroll", queue, { passive: true });
+    addEventListener("scroll", queue, { passive: true });
     addEventListener("resize", queue);
     paint();
   }
@@ -93,15 +85,15 @@
     sheet.classList.remove("is-open");
     menuBtn.setAttribute("aria-expanded", "false");
     menuBtn.innerHTML = '<i class="ph ph-list"></i>';
-    lenis && lenis.start();
   }
+  // the sheet covers the page: don't let the page scroll underneath it
+  ["wheel", "touchmove"].forEach((t) => sheet.addEventListener(t, (e) => e.preventDefault(), { passive: false }));
   menuBtn.addEventListener("click", () => {
     const open = !sheet.classList.contains("is-open");
     if (!open) return closeSheet();
     sheet.classList.add("is-open");
     menuBtn.setAttribute("aria-expanded", "true");
     menuBtn.innerHTML = '<i class="ph ph-x"></i>';
-    lenis && lenis.stop();
   });
 
   /* ---------------- buttons: fill grows from the cursor side ---------------- */
@@ -278,7 +270,6 @@
     panel.getAnimations().forEach((a) => a.cancel());
     dlg.showModal();
     $(".dlg__body").focus({ preventScroll: true }); // keyboard scrolling works, nothing moves
-    lenis && lenis.stop();
     history.replaceState(null, "", `?p=${slug}${location.hash}`);
     if (reduced) return;
     const origin = originEl ? originEl.getBoundingClientRect() : null;
@@ -290,7 +281,6 @@
   function closeProject() {
     if (!dlg.open || closing) return;
     closing = true;
-    lenis && lenis.start();
     history.replaceState(null, "", location.pathname + location.hash);
     if (reduced) { dlg.close(); return; }
     // shrink back toward the card of the project currently shown (if it is on screen)
@@ -328,6 +318,11 @@
     return (dy < 0 && dlgBody.scrollTop <= 0) || (dy > 0 && dlgBody.scrollTop >= max - 1);
   };
   dlg.addEventListener("wheel", (e) => { if (blocks(e.target, e.deltaY)) e.preventDefault(); }, { passive: false });
+  const KEY_DIR = { ArrowDown: 1, PageDown: 1, " ": 1, End: 1, ArrowUp: -1, PageUp: -1, Home: -1 };
+  dlg.addEventListener("keydown", (e) => {
+    const dy = KEY_DIR[e.key];
+    if (dy && !/^(INPUT|TEXTAREA|BUTTON|A)$/.test(e.target.tagName) && blocks(dlgBody, dy * (e.shiftKey && e.key === " " ? -1 : 1))) e.preventDefault();
+  });
   let touchY = 0;
   dlg.addEventListener("touchstart", (e) => { touchY = e.touches[0].clientY; }, { passive: true });
   dlg.addEventListener("touchmove", (e) => {

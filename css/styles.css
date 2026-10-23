@@ -53,10 +53,7 @@
 }
 
 html { -webkit-text-size-adjust: 100%; scroll-padding-top: 96px; }
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-/* no overflow:hidden while Lenis is stopped: Firefox resets the scroll position when it is removed.
-   Lenis already blocks wheel scrolling on its own while stopped. */
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 
 body {
   font-family: var(--body);
