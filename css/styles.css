@@ -337,7 +337,8 @@ ul { list-style: none; }
 }
 .marquee__track { display: flex; flex-shrink: 0; align-items: center; gap: clamp(48px, 6vw, 88px); padding-right: clamp(48px, 6vw, 88px); animation: marquee 42s linear infinite; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
-.marquee img { height: 44px; width: auto; max-width: 150px; object-fit: contain; filter: grayscale(1) contrast(1.1); opacity: .55; transition: filter .4s, opacity .4s; }
+/* --h is set per logo so marks of different shapes read at the same visual weight */
+.marquee img { height: var(--h, 44px); width: auto; object-fit: contain; filter: grayscale(1) contrast(1.1); opacity: .55; transition: filter .4s, opacity .4s; }
 .marquee a:hover img { filter: none; opacity: 1; }
 @keyframes marquee { to { transform: translateX(-100%); } }
 
@@ -533,6 +534,7 @@ ul { list-style: none; }
 }
 .tag i { font-size: 1.05rem; color: var(--accent-strong); transition: color .3s; }
 .tag img { width: 18px; height: 18px; flex-shrink: 0; }
+.tag img[src$=".png"] { border-radius: 4px; }
 .cell .tag:hover { transform: translateY(-3px); background: var(--surface); box-shadow: var(--shadow); }
 .certs { display: flex; flex-direction: column; }
 .cert__date { color: rgba(255,255,255,.5); white-space: nowrap; }
@@ -675,6 +677,7 @@ ul { list-style: none; }
   .card--lg .card__title, .card--sm .card__title { font-size: 1.3rem; }
 }
 @media (max-width: 760px) {
+  .marquee img { height: calc(var(--h, 44px) * .78); }
   .xp__head { grid-template-columns: 1fr 44px; gap: 6px 16px; padding: 22px 0; }
   .xp__when { grid-column: 1 / -1; flex-direction: row; align-items: center; }
   .xp__role { grid-column: 1; }
