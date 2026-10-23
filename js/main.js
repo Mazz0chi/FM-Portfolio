@@ -3,8 +3,8 @@
 (() => {
   const LANG = document.documentElement.lang === "es" ? "es" : "en";
   const T = {
-    en: { web: "Website", ux: "UX/UI", brand: "Brand & graphics", year: "Year", role: "Role", type: "Type", copied: "Email copied", preview: "preview", projects: "projects" },
-    es: { web: "Sitio web", ux: "UX/UI", brand: "Marca y gráfica", year: "Año", role: "Rol", type: "Tipo", copied: "Email copiado", preview: "vista previa", projects: "proyectos" }
+    en: { web: "Website", ux: "UX/UI", brand: "Brand & graphics", year: "Year", role: "Role", type: "Type", built: "Built with", copied: "Email copied", preview: "preview", projects: "projects", gs: "With GO Smartex", code: "Hand-coded" },
+    es: { web: "Sitio web", ux: "UX/UI", brand: "Marca y gráfica", year: "Año", role: "Rol", type: "Tipo", built: "Hecho con", copied: "Email copiado", preview: "vista previa", projects: "proyectos", gs: "Con GO Smartex", code: "Código a mano" }
   }[LANG];
 
   const $ = (s, root = document) => root.querySelector(s);
@@ -131,24 +131,36 @@
     $("sup", c).textContent = f === "all" ? projects.length : projects.filter((p) => p.cat === f).length;
   });
 
-  // Row rhythm: 7/5, then 4/4/4, then 5/7, then 4/4/4. Leftovers stretch so no cell is ever empty.
-  const ROWS = [[7, 5], [4, 4, 4], [5, 7], [4, 4, 4]];
+  // What each project was built with: brand icon + label.
+  const STACK = {
+    claude: { icon: "claude", label: "Claude" },
+    "claude-chrome": { icon: "claude", label: "Claude for Chrome" },
+    wordpress: { icon: "wordpress", label: "WordPress" },
+    hubspot: { icon: "hubspot", label: "HubSpot" },
+    figma: { icon: "figma", label: "Figma" },
+    code: { icon: "html5", label: T.code }
+  };
+  const stackChips = (p) =>
+    (p.stack || []).map((k) => `<span class="chip-s"><img src="assets/icons/${STACK[k].icon}.svg" alt="" width="14" height="14">${STACK[k].label}</span>`).join("") +
+    (p.gs ? `<span class="chip-s chip-s--gs">${T.gs}</span>` : "");
+
+  // Rows alternate two and three cards. Every card in a row has the same width, so the
+  // screenshots keep their real proportions. A lone card at the end joins the row before it
+  // instead of stretching to full width.
   function spans(n) {
-    const out = [];
-    let r = 0;
-    while (out.length < n) {
-      const row = ROWS[r++ % ROWS.length];
-      const left = n - out.length;
-      if (left >= row.length) out.push(...row);
-      else if (left === 1) out.push(12);
-      else out.push(...Array(left).fill(12 / left));
+    const rows = [];
+    let left = n, r = 0;
+    while (left > 0) {
+      const size = Math.min(r++ % 2 ? 3 : 2, left);
+      rows.push(size);
+      left -= size;
     }
-    return out;
+    if (rows.length > 1 && rows[rows.length - 1] === 1) { rows.pop(); rows[rows.length - 1] += 1; }
+    return rows.flatMap((k) => Array(k).fill(12 / k));
   }
 
   function cardHTML(p, span) {
-    const wide = span === 12;
-    const size = wide ? " card--wide" : span >= 5 ? " card--lg" : "";
+    const size = span >= 6 ? " card--lg" : span <= 3 ? " card--sm" : "";
     return `<article class="card${size}" style="--span:${span};--vt:card-${p.slug}">
       <button class="card__btn" data-slug="${p.slug}" aria-haspopup="dialog">
         <div class="card__media">
@@ -156,13 +168,10 @@
           <span class="card__go" aria-hidden="true"><i class="ph ph-arrow-up-right"></i></span>
         </div>
         <div class="card__meta">
-          <div>
-            <h3 class="card__title">${p.title}</h3>
-            <p class="card__role">${pick(p.role)}</p>
-          </div>
-          ${wide ? `<p class="lede" style="font-size:1rem">${pick(p.desc).split(". ")[0]}.</p>` : ""}
+          <h3 class="card__title">${p.title}</h3>
           <span class="card__year mono">${p.year}</span>
         </div>
+        <div class="card__chips">${stackChips(p) || `<span class="chip-s">${pick(p.role)}</span>`}</div>
       </button>
     </article>`;
   }
@@ -207,6 +216,7 @@
         <div><dt>${T.type}</dt><dd>${T[p.cat]}</dd></div>
       </dl>
       <p class="dlg__desc">${pick(p.desc)}</p>
+      ${stackChips(p) ? `<div class="card__chips dlg__chips" aria-label="${T.built}">${stackChips(p)}</div>` : ""}
       <div class="tags dlg__tags">${pick(p.tags).map((t) => `<span class="tag">${t}</span>`).join("")}</div>
       <div class="dlg__links">${links}</div>`;
     dlgCount.textContent = `${String(current + 1).padStart(2, "0")} / ${String(visible.length).padStart(2, "0")}`;
