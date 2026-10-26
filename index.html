@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
 <link rel="preload" as="image" href="assets/images/franco.webp">
-<link rel="stylesheet" href="css/styles.css?v=15">
+<link rel="stylesheet" href="css/styles.css?v=23">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -22,7 +22,7 @@
 
 <!-- ============ NAV ============ -->
 <header class="nav" id="nav">
-  <a href="#hero" class="nav__logo" aria-label="Franco Mazzochi, home">F<span>M</span></a>
+  <a href="#hero" class="nav__logo" aria-label="Franco Mazzochi, home">Mazzochi<sup>®</sup></a>
   <nav class="nav__links" aria-label="Main">
     <span class="nav__pill" aria-hidden="true"></span>
     <a href="#projects">Work</a>
@@ -49,13 +49,14 @@
 <main>
 <!-- ============ HERO: an editable design canvas ============ -->
 <section class="hero tool-move" id="hero" aria-label="Introduction">
+  <canvas class="orbit" id="orbit" aria-hidden="true"></canvas>
   <svg class="ink" id="ink" aria-hidden="true"></svg>
   <div class="sel" id="sel" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="sel__name"></span><span class="sel__size"></span></div>
   <div class="collab" id="collab" aria-hidden="true"><i class="ph-fill ph-cursor"></i><span>Franco</span></div>
 
   <div class="wrap hero__grid">
     <div class="hero__text">
-      <p class="hero__strip mono" data-layer="Text / Eyebrow" data-demo="5"><b>Franco Mazzochi</b> Digital Designer</p>
+      <p class="hero__strip mono" data-layer="Text / Eyebrow" data-demo="5"><b>Franco Mazzochi</b> Digital Designer · Portfolio ©2026</p>
       <h1 class="hero__title h-display" data-layer="Text / Heading" data-demo="1" data-editable>
         <span class="w"><span style="--i:0">Interfaces,</span></span>
         <span class="w"><span style="--i:1">brands</span></span>
@@ -81,6 +82,7 @@
     </figure>
   </div>
 
+  <div class="status mono" aria-label="Buenos Aires"><span>Buenos Aires, AR</span><span>34°36′S 58°22′W</span><span><time data-clock>--:--:--</time> GMT-3</span><span class="status__avail">Available for projects</span></div>
   <div class="toolbar" role="toolbar" aria-label="Canvas tools">
     <span class="toolbar__hint mono">Try the tools</span>
     <button class="tool" data-tool="move" aria-pressed="true" aria-label="Move tool"><i class="ph ph-cursor"></i><kbd>Move V</kbd></button>
@@ -107,6 +109,129 @@
       <a href="https://electroquimioterapia.com.ar/" target="_blank" rel="noopener"><img src="assets/logos/gem.png" style="--h:60px" alt="GEM"></a>
       <a href="https://jjbulk.com/" target="_blank" rel="noopener"><img src="assets/logos/jj-bulk.png" style="--h:72px" alt="JJ Bulk"></a>
       <a href="https://chefmarcorocha.com/" target="_blank" rel="noopener"><img src="assets/logos/chef-marco-rocha.png" style="--h:72px" alt="Chef Marco Rocha"></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NOW ============ -->
+<section class="sec now" id="now" aria-labelledby="now-title">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2 class="h2" id="now-title">Right <em>now</em></h2>
+      <p class="lede">What I'm working on, who I work with and what I work with.</p>
+    </div>
+    <div class="art-grid">
+      <a class="art art--lead rv" href="#case">
+        <div class="art__body">
+          <span class="art__k mono">Design Lead · GO Smartex</span>
+          <h3 class="art__t">I lead design at a B2B growth agency.</h3>
+          <p>Presentations, marketing and websites, with a team of freelance designers. The website is my favorite proof.</p>
+          <span class="art__a">Read the case study <i class="ph ph-arrow-down-right"></i></span>
+        </div>
+        <div class="art__visual art__visual--lead" aria-hidden="true">
+          <img src="assets/images/case/gs-v3.webp" alt="" loading="lazy">
+          <svg class="growth growth--mini" viewBox="0 0 300 120" preserveAspectRatio="none"><path pathLength="1" d="M0 110 C 60 105, 90 90, 130 70 S 210 30, 300 8" /></svg>
+        </div>
+      </a>
+      <a class="art art--bcm rv" style="--d:1" href="https://bcm-portfolio.vercel.app/" target="_blank" rel="noopener">
+        <div class="art__visual" aria-hidden="true"><img src="assets/images/work/bcm.webp" alt="" loading="lazy"></div>
+        <div class="art__body">
+          <span class="art__k mono">Studio</span>
+          <h3 class="art__t">Benitez Cruz Mazzochi</h3>
+          <p>Websites, branding and brand refreshes, designed and built with Agustina.</p>
+          <span class="art__a">Visit the studio <i class="ph ph-arrow-up-right"></i></span>
+        </div>
+      </a>
+      <a class="art art--reels rv" href="#videos">
+        <div class="art__reels" aria-hidden="true"><img src="assets/images/work/reel-toby.webp" alt="" style="--i:0" loading="lazy"><img src="assets/images/work/reel-mediapunta.webp" alt="" style="--i:1" loading="lazy"><img src="assets/images/work/reel-comedy.webp" alt="" style="--i:2" loading="lazy"><img src="assets/images/work/reel-comedy-2.webp" alt="" style="--i:3" loading="lazy"><span class="art__play"><i class="ph-fill ph-play"></i></span></div>
+        <div class="art__body">
+          <span class="art__k mono">Video</span>
+          <h3 class="art__t">8 edited videos</h3>
+          <p>Reels, short films and commercials.</p>
+          <span class="art__a">Watch them <i class="ph ph-arrow-down-right"></i></span>
+        </div>
+      </a>
+      <div class="art art--num rv" style="--d:1">
+        <span class="art__k mono">In this portfolio</span>
+        <div class="art__nums">
+          <div><b data-count="21" data-suffix="">21</b><span>Projects</span></div>
+          <div><b data-count="17" data-suffix="">17</b><span>Websites</span></div>
+          <div><b data-count="11" data-suffix="">11</b><span>Brands</span></div>
+        </div>
+      </div>
+      <a class="art art--stack rv" style="--d:2" href="#toolkit">
+        <div class="art__orbit" aria-hidden="true"><span class="art__core">FM</span><img src="assets/icons/claude.svg" alt="" style="--i:0" width="30" height="30"><img src="assets/icons/figma.svg" alt="" style="--i:1" width="30" height="30"><img src="assets/icons/affinity.png" alt="" style="--i:2" width="30" height="30"><img src="assets/icons/wordpress.svg" alt="" style="--i:3" width="30" height="30"><img src="assets/icons/github.svg" alt="" style="--i:4" width="30" height="30"><img src="assets/icons/davinciresolve.svg" alt="" style="--i:5" width="30" height="30"><img src="assets/icons/canva.svg" alt="" style="--i:6" width="30" height="30"><img src="assets/icons/openai.svg" alt="" style="--i:7" width="30" height="30"></div>
+        <div class="art__body">
+          <span class="art__k mono">Toolkit</span>
+          <h3 class="art__t">Design, code and AI.</h3>
+          <span class="art__a">See every tool <i class="ph ph-arrow-down-right"></i></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASE ============ -->
+<section class="sec case" id="case" aria-labelledby="case-title">
+  <div class="wrap">
+    <div class="case__head rv">
+      <span class="case__k mono">Case study · GO Smartex</span>
+      <h2 class="h2" id="case-title">From a basic website to a <em>growth engine</em></h2>
+      <p class="lede">GO Smartex helps B2B companies attract, convert and grow. Their first website couldn't show it. This is how it changed.</p>
+      <dl class="case__facts">
+        <div><dt class="mono">Role</dt><dd>Design Lead</dd></div>
+        <div><dt class="mono">Built with</dt><dd><img src="assets/icons/claude.svg" alt="" width="16" height="16"> Claude</dd></div>
+        <div><dt class="mono">Scope</dt><dd>Strategy, UX/UI, development and motion</dd></div>
+      </dl>
+    </div>
+
+    <div class="ba rv" style="--pos:50%">
+      <img class="ba__img" src="assets/images/case/gs-v3.webp" alt="Now: GO Smartex" loading="lazy">
+      <div class="ba__before"><img class="ba__img" src="assets/images/case/gs-v1.webp" alt="Before: GO Smartex" loading="lazy"></div>
+      <span class="ba__tag ba__tag--l mono">Before</span>
+      <span class="ba__tag ba__tag--r mono">Now</span>
+      <div class="ba__handle" aria-hidden="true"><span><i class="ph ph-caret-left"></i><i class="ph ph-caret-right"></i></span></div>
+      <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Compare the first GO Smartex website with the current one">
+    </div>
+    <p class="ba__hint mono">Drag to compare</p>
+
+    <div class="story">
+      <div class="story__stage" aria-hidden="true">
+        <div class="story__screen"><img src="assets/images/case/gs-v1.webp" alt="First version of the GO Smartex website" data-for="0" loading="lazy" class="is-on"><img src="assets/images/case/gs-v2.webp" alt="Second version of the GO Smartex website" data-for="1" loading="lazy"><img src="assets/images/case/gs-v3.webp" alt="Current GO Smartex website" data-for="2" loading="lazy"></div>
+        <div class="story__growth">
+          <svg class="growth" viewBox="0 0 600 160"><path class="growth__track" d="M0 150 C 120 145, 180 120, 260 95 S 420 40, 600 10"/><path class="growth__line" pathLength="1" d="M0 150 C 120 145, 180 120, 260 95 S 420 40, 600 10"/></svg>
+          <div class="story__labels mono"><span style="--x:8%">Attract</span><span style="--x:50%">Convert</span><span style="--x:92%">Grow</span></div>
+        </div>
+      </div>
+      <div class="story__steps">
+        <article class="step" data-step="0">
+          <span class="step__n mono">01</span>
+          <h3>The starting point</h3>
+          <p>The first site was a basic page: a generic headline, a dark layout and no clear offer. It said what GO Smartex did, but it didn't show it, and it didn't make anyone want to know more.</p>
+          <img class="step__img" src="assets/images/case/gs-v1.webp" alt="First version of the GO Smartex website" loading="lazy">
+        </article>
+        <article class="step" data-step="1">
+          <span class="step__n mono">02</span>
+          <h3>Iterate with intent</h3>
+          <p>The second version found the message: Attract. Convert. Grow Smarter. From there I rebuilt the site with Claude as a modular system, where each section adapts to its content and the structure follows the same path as their clients' growth.</p>
+          <img class="step__img" src="assets/images/case/gs-v2.webp" alt="Second version of the GO Smartex website" loading="lazy">
+        </article>
+        <article class="step" data-step="2">
+          <span class="step__n mono">03</span>
+          <h3>Design that shows growth</h3>
+          <p>Today the site shows the agency's full potential. Market data opens the conversation, each stage of the funnel has its own offer, and the animations speak the language of growth: signals that connect into a pipeline, charts that climb, channels that orbit around the client's business.</p>
+          <img class="step__img" src="assets/images/case/gs-v3.webp" alt="Current GO Smartex website" loading="lazy">
+        </article>
+      </div>
+    </div>
+
+    <div class="gal rv">
+      <h3 class="gal__h">Inside the new site</h3>
+      <div class="gal__row">
+        <figure class="gal__item"><img src="assets/images/case/gs-challenges.webp" alt="Market data that opens the conversation." loading="lazy"><figcaption>Market data that opens the conversation.</figcaption></figure><figure class="gal__item"><img src="assets/images/case/gs-attract.webp" alt="Every channel orbits around the client's business." loading="lazy"><figcaption>Every channel orbits around the client's business.</figcaption></figure>
+        <figure class="gal__item gal__item--phone"><div class="phone"><img src="assets/images/case/gs-mobile.webp" alt="Designed for mobile too." loading="lazy"></div><figcaption>Designed for mobile too.</figcaption></figure>
+      </div>
+      <a class="btn btn--accent" href="https://gosmartex.com/" target="_blank" rel="noopener">Visit gosmartex.com <i class="ph ph-arrow-up-right"></i></a>
     </div>
   </div>
 </section>
@@ -279,25 +404,17 @@
           <a class="cert" href="https://www.coursera.org/user/04eaab1fac43b0cf28190752aa777a00" target="_blank" rel="noopener"><div><b>Universidad de Palermo</b><span>Adobe Illustrator, Intermediate Tools</span></div><span class="cert__date mono">Nov 2021</span><i class="ph ph-arrow-up-right"></i></a>
         </div>
       </div>
-      <div class="cell cell--stats rv" style="--d:1">
-        <h3>In numbers</h3>
-        <div class="stats">
-          <div><b data-count="15">15</b><span>Websites delivered</span></div>
-          <div><b data-count="10">10</b><span>Brands served</span></div>
-          <div><b data-count="4">4</b><span>Years designing</span></div>
-        </div>
-      </div>
       <div class="cell cell--dev rv" style="--d:1">
         <h3>Development</h3>
         <div class="tags"><span class="tag"><img src="assets/icons/visualstudiocode.svg" alt="" width="18" height="18">Visual Studio Code</span><span class="tag"><img src="assets/icons/github.svg" alt="" width="18" height="18">GitHub</span><span class="tag"><img src="assets/icons/vercel.svg" alt="" width="18" height="18">Vercel</span><span class="tag"><img src="assets/icons/wordpress.svg" alt="" width="18" height="18">WordPress</span><span class="tag"><img src="assets/icons/hubspot.svg" alt="" width="18" height="18">HubSpot</span><span class="tag"><img src="assets/icons/html5.svg" alt="" width="18" height="18">HTML</span><span class="tag"><img src="assets/icons/css3.svg" alt="" width="18" height="18">CSS</span><span class="tag"><img src="assets/icons/javascript.svg" alt="" width="18" height="18">JavaScript</span></div>
       </div>
-      <div class="cell cell--spec rv">
-        <h3>Specialties</h3>
-        <div class="tags"><span class="tag"><i class="ph ph-cursor-click"></i>UX/UI design</span><span class="tag"><i class="ph ph-browser"></i>Web design</span><span class="tag"><i class="ph ph-seal"></i>Branding</span><span class="tag"><i class="ph ph-paint-brush"></i>Visual identity</span><span class="tag"><i class="ph ph-text-aa"></i>Typography</span><span class="tag"><i class="ph ph-share-network"></i>Social media design</span><span class="tag"><i class="ph ph-video-camera"></i>Video editing</span><span class="tag"><i class="ph ph-users-three"></i>Team leadership</span></div>
-      </div>
       <div class="cell cell--lang rv" style="--d:1">
         <h3>Languages</h3>
         <ul class="langs"><li><b>Spanish</b><span class="mono">Native</span></li><li><b>English</b><span class="mono">Fluent</span></li><li><b>Portuguese</b><span class="mono">Basic</span></li></ul>
+      </div>
+      <div class="cell cell--spec rv">
+        <h3>Specialties</h3>
+        <div class="tags"><span class="tag"><i class="ph ph-cursor-click"></i>UX/UI design</span><span class="tag"><i class="ph ph-browser"></i>Web design</span><span class="tag"><i class="ph ph-seal"></i>Branding</span><span class="tag"><i class="ph ph-paint-brush"></i>Visual identity</span><span class="tag"><i class="ph ph-text-aa"></i>Typography</span><span class="tag"><i class="ph ph-share-network"></i>Social media design</span><span class="tag"><i class="ph ph-video-camera"></i>Video editing</span><span class="tag"><i class="ph ph-users-three"></i>Team leadership</span></div>
       </div>
     </div>
   </div>
@@ -307,7 +424,9 @@
 <section class="sec contact" id="contact" style="padding-top:0">
   <div class="wrap">
     <div class="contact__box rv">
+      <canvas class="orbit orbit--contact" id="orbit2" aria-hidden="true"></canvas>
       <span class="avail">Available for select projects</span>
+      <span class="contact__clock mono">Buenos Aires · <time data-clock>--:--:--</time> GMT-3</span>
       <h2 class="contact__title h-display">Let's work <em>together.</em></h2>
       <p>If you have a challenge that needs systematic thinking and careful execution, let's talk.</p>
       <button class="email" id="copyEmail" data-email="fmazzochi1@gmail.com" aria-label="Copy email address fmazzochi1@gmail.com">fmazzochi1@gmail.com <i class="ph ph-copy"></i></button>
@@ -326,7 +445,7 @@
 
 <footer class="foot">
   <div class="wrap">
-    <p>© 2026 Franco Mazzochi</p>
+    <p>Mazzochi® · Portfolio ©2026</p>
     <p>Image and Sound Design, Universidad de Palermo (2021-2025)</p>
   </div>
 </footer>
@@ -349,7 +468,7 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"><i class="ph-fill ph-check-circle"></i><span></span></div>
 
-<script src="js/projects.js?v=15" defer></script>
-<script src="js/main.js?v=15" defer></script>
+<script src="js/projects.js?v=23" defer></script>
+<script src="js/main.js?v=23" defer></script>
 </body>
 </html>

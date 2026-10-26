@@ -3,8 +3,8 @@
 (() => {
   const LANG = document.documentElement.lang === "es" ? "es" : "en";
   const T = {
-    en: { web: "Website", ux: "UX/UI", brand: "Brand & graphics", year: "Year", role: "Role", type: "Type", built: "Built with", copied: "Email copied", preview: "preview", projects: "projects", gs: "With GO Smartex", code: "HTML & CSS" },
-    es: { web: "Sitio web", ux: "UX/UI", brand: "Marca y gráfica", year: "Año", role: "Rol", type: "Tipo", built: "Hecho con", copied: "Email copiado", preview: "vista previa", projects: "proyectos", gs: "Con GO Smartex", code: "HTML y CSS" }
+    en: { web: "Website", ux: "UX/UI", brand: "Brand & graphics", year: "Year", role: "Role", type: "Type", built: "Built with", copied: "Email copied", preview: "preview", projects: "projects", gs: "With GO Smartex", code: "HTML & CSS", more: (n) => `View all ${n} projects`, less: "Show fewer" },
+    es: { web: "Sitio web", ux: "UX/UI", brand: "Marca y gráfica", year: "Año", role: "Rol", type: "Tipo", built: "Hecho con", copied: "Email copiado", preview: "vista previa", projects: "proyectos", gs: "Con GO Smartex", code: "HTML y CSS", more: (n) => `Ver los ${n} proyectos`, less: "Ver menos" }
   }[LANG];
 
   const $ = (s, root = document) => root.querySelector(s);
@@ -18,7 +18,18 @@
      Native scrolling only: a smooth-scroll library adds input lag on trackpads.
      The offset under the fixed nav comes from scroll-padding-top in the CSS. */
   const scrollToEl = (el) => {
-    if (el) el.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+    if (!el) return;
+    el.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+    // images that load during the trip can push the target down; land precisely once it settles
+    const pad = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+    const settle = () => {
+      const off = el.getBoundingClientRect().top - (el.id === "hero" ? 0 : pad);
+      if (Math.abs(off) > 4 && scrollY + off >= 0 && scrollY < document.documentElement.scrollHeight - innerHeight - 2) {
+        el.scrollIntoView({ behavior: "auto" });
+      }
+    };
+    if ("onscrollend" in window) addEventListener("scrollend", settle, { once: true });
+    else setTimeout(settle, 1200);
   };
 
   document.addEventListener("click", (e) => {
@@ -191,14 +202,35 @@
     </article>`;
   }
 
+  // On phones the grid starts with 8 projects and a button reveals the rest.
+  const MORE_AT = 8;
+  const moreWrap = document.createElement("div");
+  moreWrap.className = "more-wrap";
+  moreWrap.innerHTML = '<button class="btn btn--ghost more" type="button" aria-controls="grid" aria-expanded="false"></button>';
+  grid.after(moreWrap);
+  const moreBtn = $(".more", moreWrap);
+  const syncMore = () => {
+    const open = grid.classList.contains("is-open");
+    moreBtn.hidden = visible.length <= MORE_AT;
+    moreBtn.textContent = open ? T.less : T.more(visible.length);
+    moreBtn.setAttribute("aria-expanded", String(open));
+  };
+  moreBtn.addEventListener("click", () => {
+    const open = grid.classList.toggle("is-open");
+    syncMore();
+    if (!open) scrollToEl(document.getElementById("projects"));
+  });
+
   function renderGrid(first = false) {
     visible = filter === "all" ? projects : projects.filter((p) => p.cat === filter);
+    grid.classList.remove("is-open");
     const s = spans(visible.length);
     grid.innerHTML = visible.map((p, i) => cardHTML(p, s[i])).join("");
     $$(".card", grid).forEach((c, i) => {
       if (first) { c.classList.add("rv"); c.style.setProperty("--d", i % 3); }
     });
     if (first) watchReveal(grid);
+    syncMore();
   }
   renderGrid(true);
 
@@ -408,20 +440,194 @@
 
   /* ---------------- count up ---------------- */
   const counters = $$("[data-count]");
-  if (!reduced) counters.forEach((c) => (c.textContent = "0+"));
-  else counters.forEach((c) => (c.textContent = c.dataset.count + "+"));
+  const suffix = (c) => c.dataset.suffix ?? "+";
+  if (!reduced) counters.forEach((c) => (c.textContent = "0" + suffix(c)));
+  else counters.forEach((c) => (c.textContent = c.dataset.count + suffix(c)));
   const countIO = new IntersectionObserver((entries) => entries.forEach((en) => {
     if (!en.isIntersecting) return;
     countIO.unobserve(en.target);
     const end = +en.target.dataset.count, t0 = performance.now(), dur = 1400;
     const tick = (t) => {
       const k = Math.min(1, (t - t0) / dur);
-      en.target.textContent = Math.round(end * (1 - Math.pow(1 - k, 4))) + "+";
+      en.target.textContent = Math.round(end * (1 - Math.pow(1 - k, 4))) + suffix(en.target);
       if (k < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
   }), { threshold: 0.6 });
   if (!reduced) counters.forEach((c) => countIO.observe(c));
+
+
+  /* =========================================================
+     ORBIT: the generated scene. Thousands of thin blue strokes orbit on a tilted
+     disc around the portrait (like light around a black hole). The cursor bends
+     them like a small gravity well, and the orbit speeds up as you scroll away.
+     ========================================================= */
+  function createOrbit(canvas, { center, color, density = 1, fade = 0.035, strength = 1 }) {
+    const ctx = canvas.getContext("2d");
+    const host = canvas.parentElement;
+    const dpr = Math.min(devicePixelRatio || 1, 1.5);
+    let W = 0, H = 0, parts = [], running = false, visible = true, raf = 0;
+    const mouse = { x: -9999, y: -9999, on: false };
+    let spin = 1;
+
+    const TILT = 0.36, ROT = -0.3, cosR = Math.cos(ROT), sinR = Math.sin(ROT);
+    const spawn = (p, C) => {
+      p.r = C.r * (0.82 + Math.pow(Math.random(), 1.6) * 2.4);
+      p.a = Math.random() * Math.PI * 2;
+      p.w = 0.0085 * Math.pow(C.r / p.r, 1.5) * (0.75 + Math.random() * 0.5);
+      p.life = 260 + Math.random() * 520;
+      p.alpha = Math.min(1, (0.16 + Math.random() * 0.5 * Math.pow(C.r / p.r, 0.7)) * strength);
+      p.lw = (0.5 + Math.random() * 0.9) * dpr;
+      p.fresh = true;
+      return p;
+    };
+    const place = (p, C) => {
+      const x = Math.cos(p.a) * p.r, y = Math.sin(p.a) * p.r * TILT;
+      let px = C.x + x * cosR - y * sinR, py = C.y + x * sinR + y * cosR;
+      if (mouse.on) {                         // gravity well around the cursor
+        const dx = mouse.x - px, dy = mouse.y - py, d2 = dx * dx + dy * dy;
+        const f = Math.min(0.5, 2600 / (d2 + 2600));
+        px += dx * f * 0.55; py += dy * f * 0.55;
+      }
+      return [px * dpr, py * dpr];
+    };
+    const resize = () => {
+      const r = host.getBoundingClientRect();
+      W = r.width; H = r.height;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      const n = Math.round(Math.min(1700, Math.max(380, (W * H) / 820)) * density);
+      const C = center(W, H);
+      parts = Array.from({ length: n }, () => spawn({}, C));
+    };
+    const BUCKETS = 4;
+    const step = () => {
+      const C = center(W, H);
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = `rgba(0,0,0,${fade})`;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = "source-over";
+      const paths = Array.from({ length: BUCKETS }, () => new Path2D());
+      for (const p of parts) {
+        const [x0, y0] = place(p, C);
+        p.a += p.w * spin;
+        p.r += Math.sin(p.a * 3 + p.life * 0.01) * 0.06;
+        if (--p.life < 0) { spawn(p, C); continue; }
+        const [x1, y1] = place(p, C);
+        if (p.fresh) { p.fresh = false; continue; }
+        const b = Math.min(BUCKETS - 1, Math.floor(p.alpha * BUCKETS * 1.6));
+        paths[b].moveTo(x0, y0); paths[b].lineTo(x1, y1);
+      }
+      ctx.lineCap = "round";
+      for (let b = 0; b < BUCKETS; b++) {
+        ctx.strokeStyle = color(Math.min(0.85, (b + 0.8) / (BUCKETS * 1.6)));
+        ctx.lineWidth = (0.8 + b * 0.3) * dpr;
+        ctx.stroke(paths[b]);
+      }
+    };
+    const loop = () => { step(); raf = running ? requestAnimationFrame(loop) : 0; };
+    const play = () => { if (!running && visible && !document.hidden && !reduced) { running = true; raf = requestAnimationFrame(loop); } };
+    const pause = () => { running = false; cancelAnimationFrame(raf); };
+
+    resize();
+    if (reduced) { for (let i = 0; i < 240; i++) step(); }       // one still frame
+    new ResizeObserver(() => { resize(); if (reduced) for (let i = 0; i < 240; i++) step(); }).observe(host);
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? play() : pause(); }).observe(host);
+    document.addEventListener("visibilitychange", () => (document.hidden ? pause() : play()));
+    host.addEventListener("pointermove", (e) => {
+      const r = host.getBoundingClientRect();
+      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; mouse.on = e.pointerType === "mouse";
+    });
+    host.addEventListener("pointerleave", () => (mouse.on = false));
+    return { setSpin: (v) => (spin = v), play };
+  }
+
+  const heroOrbit = $("#orbit");
+  if (heroOrbit) {
+    const frameImg = $(".frame__img");
+    const o = createOrbit(heroOrbit, {
+      center: () => {
+        const h = heroOrbit.parentElement.getBoundingClientRect(), r = frameImg.getBoundingClientRect();
+        return { x: r.left + r.width / 2 - h.left, y: r.top + r.height / 2 - h.top, r: r.width * 0.78 };
+      },
+      color: (a) => `rgba(73, 114, 255, ${a})`,
+    });
+    // spin up while the hero scrolls away
+    let queued = false;
+    addEventListener("scroll", () => {
+      if (queued) return; queued = true;
+      requestAnimationFrame(() => { queued = false; o.setSpin(1 + 3 * Math.min(1, scrollY / innerHeight)); });
+    }, { passive: true });
+  }
+  const contactOrbit = $("#orbit2");
+  if (contactOrbit) {
+    createOrbit(contactOrbit, {
+      center: (w, h) => ({ x: w * (w > 760 ? 0.78 : 0.7), y: h * 0.42, r: Math.min(w, h) * 0.22 }),
+      color: (a) => `rgba(142, 166, 255, ${a})`,
+      density: 0.6, fade: 0.05, strength: 1.3,
+    });
+  }
+
+  /* ---------------- live Buenos Aires clock ---------------- */
+  const clocks = $$("[data-clock]");
+  if (clocks.length) {
+    const fmt = new Intl.DateTimeFormat("en-GB", { timeZone: "America/Argentina/Buenos_Aires", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
+    const tickClock = () => { const v = fmt.format(new Date()); clocks.forEach((c) => (c.textContent = v)); };
+    tickClock(); setInterval(tickClock, 1000);
+  }
+
+  /* ---------------- spotlight on the artifact cards ---------------- */
+  $$(".art").forEach((card) => card.addEventListener("pointermove", (e) => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty("--x", e.clientX - r.left + "px");
+    card.style.setProperty("--y", e.clientY - r.top + "px");
+  }));
+
+  /* ---------------- before / after slider ---------------- */
+  const ba = $(".ba");
+  if (ba) {
+    const range = $(".ba__range", ba);
+    const set = (v) => { ba.style.setProperty("--pos", v + "%"); range.value = v; };
+    range.addEventListener("input", () => set(+range.value));
+    range.addEventListener("pointerdown", () => ba.classList.add("is-drag"));
+    addEventListener("pointerup", () => ba.classList.remove("is-drag"));
+    // a one-time sweep when it first comes into view, so it's obvious it can be dragged
+    if (!reduced) {
+      const sweepIO = new IntersectionObserver(([e]) => {
+        if (!e.isIntersecting) return;
+        sweepIO.disconnect();
+        const keys = [[0, 50], [700, 18], [1500, 82], [2200, 50]];
+        const t0 = performance.now();
+        const ease = (k) => 0.5 - Math.cos(Math.PI * k) / 2;
+        const tick = (t) => {
+          if (ba.classList.contains("is-drag")) return;
+          const dt = t - t0;
+          const i = keys.findIndex(([at]) => at > dt);
+          if (i === -1) { set(50); return; }
+          const [ta, va] = keys[i - 1], [tb, vb] = keys[i];
+          set(va + (vb - va) * ease((dt - ta) / (tb - ta)));
+          requestAnimationFrame(tick);
+        };
+        setTimeout(() => requestAnimationFrame(tick), 400);
+      }, { threshold: 0.6 });
+      sweepIO.observe(ba);
+    }
+  }
+
+  /* ---------------- case study story: sticky screen follows the steps ---------------- */
+  const steps = $$(".step");
+  if (steps.length) {
+    const screens = $$(".story__screen img"), labels = $$(".story__labels span"), line = $(".growth__line");
+    const activate = (i) => {
+      steps.forEach((s, k) => s.classList.toggle("is-on", k === i));
+      screens.forEach((im, k) => im.classList.toggle("is-on", k === i));
+      labels.forEach((l, k) => l.classList.toggle("is-on", k <= i));
+      if (line) line.style.setProperty("--growth", String(1 - (i + 1) / steps.length));
+    };
+    const stepIO = new IntersectionObserver((entries) => entries.forEach((en) => {
+      if (en.isIntersecting) activate(steps.indexOf(en.target));
+    }), { rootMargin: "-45% 0px -45% 0px" });
+    steps.forEach((s) => stepIO.observe(s));
+  }
 
   /* ---------------- copy email ---------------- */
   const toast = $("#toast");
