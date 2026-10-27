@@ -42,6 +42,18 @@ window.PROJECTS = [
     ]
   },
   {
+    slug: "jj-capinvest-brand", cat: "brand", year: 2026, img: "jj-brand", stack: [],
+    gallery: ["jj-brand-explore", "jj-brand-logo", "jj-brand-versions", "jj-brand-color", "jj-brand-type", "jj-brand-dashboard", "jj-brand-app", "jj-brand-social", "jj-brand-linkedin", "jj-brand-banner", "jj-brand-merch", "jj-brand-essentials"],
+    title: { en: "JJ Capinvest brand identity", es: "Identidad de marca JJ Capinvest" },
+    role: { en: "Brand designer", es: "Diseñador de marca" },
+    desc: {
+      en: "I developed the visual identity of an investment firm based in Paris, Lyon and Valencia. After exploring more than twenty logo directions, I arrived at a monogram, a serif wordmark and an orange dot, then documented the system in a 29-page brand guide covering logo use, color, typography, tone of voice and applications for the investor platform, social media, LinkedIn and merchandise.",
+      es: "Desarrollé la identidad visual de una firma de inversión con sede en París, Lyon y Valencia. Después de explorar más de veinte direcciones de logo, llegué a un monograma, un logotipo en serif y un punto naranja, y documenté el sistema en un manual de marca de 29 páginas con uso del logo, color, tipografía, tono de voz y aplicaciones para la plataforma de inversores, redes sociales, LinkedIn y merchandising."
+    },
+    tags: { en: ["Visual identity", "Brand guidelines", "Logo design", "Financial services"], es: ["Identidad visual", "Manual de marca", "Diseño de logo", "Servicios financieros"] },
+    links: []
+  },
+  {
     slug: "888-capinvest", cat: "web", year: 2026, img: "888ci", stack: ["claude"], gs: true,
     title: "888 Capinvest",
     role: { en: "Designer & developer", es: "Diseñador y desarrollador" },

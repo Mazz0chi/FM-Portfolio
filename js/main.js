@@ -190,11 +190,11 @@
     return `<article class="card${size}" style="--span:${span};--vt:card-${p.slug}">
       <button class="card__btn" data-slug="${p.slug}" aria-haspopup="dialog">
         <div class="card__media">
-          <img src="${IMG(p.img)}" alt="${p.title} ${T.preview}" loading="lazy" decoding="async">
+          <img src="${IMG(p.img)}" alt="${pick(p.title)} ${T.preview}" loading="lazy" decoding="async">
           <span class="card__go" aria-hidden="true"><i class="ph ph-arrow-up-right"></i></span>
         </div>
         <div class="card__meta">
-          <h3 class="card__title">${p.title}</h3>
+          <h3 class="card__title">${pick(p.title)}</h3>
           <span class="card__year mono">${p.year}</span>
         </div>
         <div class="card__chips">${stackChips(p) || `<span class="chip-s">${pick(p.role)}</span>`}</div>
@@ -253,11 +253,11 @@
 
   function fillDialog(p, dir = 0) {
     const links = p.links.map((l, i) => `<a class="btn ${i ? "btn--ghost" : "btn--accent"}" href="${pick(l.url)}" target="_blank" rel="noopener">${pick(l.label)}${i ? "" : ' <i class="ph ph-arrow-up-right"></i>'}</a>`).join("");
-    const imgs = [p.img, ...(p.gallery || [])].map((n) => `<div class="dlg__media"><img src="${IMG(n)}" alt="${p.title} ${T.preview}"></div>`).join("");
+    const imgs = [p.img, ...(p.gallery || [])].map((n) => `<div class="dlg__media"><img src="${IMG(n)}" alt="${pick(p.title)} ${T.preview}"></div>`).join("");
     dlgContent.innerHTML = `
       <div class="dlg__gallery">${imgs}</div>
       <div class="dlg__side">
-      <h2 class="dlg__title" id="dlgTitle">${p.title}</h2>
+      <h2 class="dlg__title" id="dlgTitle">${pick(p.title)}</h2>
       <dl class="dlg__info">
         <div><dt>${T.year}</dt><dd>${p.year}</dd></div>
         <div><dt>${T.role}</dt><dd>${pick(p.role)}</dd></div>
